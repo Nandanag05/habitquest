@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HabitQuest</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#0b0f1a,#141a2e);
+  color:white;
+}
+
+.card{
+  background:#1b2238;
+  padding:20px;
+  border-radius:14px;
+  margin:12px;
+  box-shadow:0 0 20px rgba(0,255,200,0.08);
+}
+
+button{
+  background:#00e0a4;
+  border:none;
+  padding:10px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+input{
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  margin:6px 0;
+  width:100%;
+}
+
+.tabs{
+  display:flex;
+  gap:10px;
+  margin:10px;
+}
+
+.tabbtn{
+  flex:1;
+  padding:12px;
+  background:#222a44;
+  border-radius:10px;
+  cursor:pointer;
+  text-align:center;
+}
+
+.activeTab{
+  background:#00e0a4;
+  color:black;
+}
+
+.hidden{display:none}
+
+#character{
+  font-size:60px;
+  text-align:center;
+  transition:all .4s;
+}
+
+.glow{
+  text-shadow:0 0 20px gold,0 0 40px gold;
+}
+
+.todo-item{
+  display:flex;
+  justify-content:space-between;
+  margin:6px 0;
+}
+
+.progress{
+  height:10px;
+  background:#333;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  background:#00e0a4;
+  width:0%;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage" class="card" style="max-width:400px;margin:60px auto;">
+<h2>HabitQuest Login 🎯</h2>
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="login()">Enter Quest</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="app" class="hidden">
+
+<div class="card">
+<h3>🔥 Streak: <span id="streak">0</span> days</h3>
+<h3>⭐ XP: <span id="xp">0</span></h3>
+<div class="progress"><div id="xpbar" class="progress-bar"></div></div>
+</div>
+
+<div id="character" class="card">🥚</div>
+
+<div class="tabs">
+<div class="tabbtn activeTab" onclick="showTab('health')">Health</div>
+<div class="tabbtn" onclick="showTab('todo')">Todo</div>
+<div class="tabbtn" onclick="showTab('learn')">Learning</div>
+</div>
+
+<!-- HEALTH -->
+<div id="health" class="card">
+<h3>Health Habits ❤️</h3>
+<label><input type="checkbox" onchange="habitDone(25)"> Steps 5000</label><br>
+<label><input type="checkbox" onchange="habitDone(25)"> Workout 30 min</label><br>
+<label><input type="checkbox" onchange="habitDone(25)"> Water 12 glasses</label><br>
+<label><input type="checkbox" onchange="habitDone(25)"> Meditation 20 min</label>
+
+<h3>🌙 Period Tracker</h3>
+<input type="date" id="lastPeriod">
+<input type="number" id="cycleLen" placeholder="Cycle length (default 28)">
+<button onclick="calcPeriod()">Predict</button>
+<div id="periodOut"></div>
+</div>
+
+<!-- TODO -->
+<div id="todo" class="card hidden">
+<h3>Todos ✅</h3>
+<input id="todoText" placeholder="New task">
+<button onclick="addTodo()">Add</button>
+<div id="todoList"></div>
+</div>
+
+<!-- LEARNING -->
+<div id="learn" class="card hidden">
+<h3>Learning 📚</h3>
+<button onclick="learnXP()">Reading +15 XP</button>
+<button onclick="learnXP()">Skill Practice +15 XP</button>
+<button onclick="learnXP()">Language +15 XP</button>
+<button onclick="learnXP()">Growth +15 XP</button>
+</div>
+
+</div>
+
+<script>
+let xp=Number(localStorage.xp)||0
+let streak=Number(localStorage.streak)||0
+let lastActive=localStorage.lastActive||""
+
+function login(){
+ let e=email.value
+ let p=pass.value
+ if(e.includes("@") && p.length>=6){
+  loginPage.classList.add("hidden")
+  app.classList.remove("hidden")
+  dailyCheck()
+  render()
+ }
+ else alert("Invalid login")
+}
+
+function showTab(id){
+ document.querySelectorAll(".tabbtn").forEach(b=>b.classList.remove("activeTab"))
+ event.target.classList.add("activeTab")
+ document.querySelectorAll("#health,#todo,#learn").forEach(t=>t.classList.add("hidden"))
+ document.getElementById(id).classList.remove("hidden")
+}
+
+function addXP(val){
+ xp+=val
+ localStorage.xp=xp
+ render()
+}
+
+function habitDone(val){
+ addXP(val)
+ markActive()
+}
+
+function learnXP(){
+ addXP(15)
+ markActive()
+}
+
+function markActive(){
+ let today=new Date().toDateString()
+ if(today!==lastActive){
+  streak++
+  lastActive=today
+  localStorage.lastActive=today
+  localStorage.streak=streak
+ }
+}
+
+function dailyCheck(){
+ let today=new Date().toDateString()
+ if(lastActive && lastActive!==today){
+  let diff=(new Date(today)-new Date(lastActive))/86400000
+  if(diff>1){streak=0;localStorage.streak=0}
+ }
+}
+
+function render(){
+ xpEl.innerText=xp
+ streakEl.innerText=streak
+ xpbar.style.width=(xp%100)+"%"
+ updateCharacter()
+}
+
+function updateCharacter(){
+ let c=document.getElementById("character")
+ c.classList.remove("glow")
+ if(streak==0)c.innerText="🥚"
+ else if(streak<4)c.innerText="🌱"
+ else if(streak<8)c.innerText="🧑"
+ else if(streak<15)c.innerText="🛡️"
+ else if(streak<22)c.innerText="👑"
+ else {c.innerText="🪽";c.classList.add("glow")}
+}
+
+function addTodo(){
+ let t=todoText.value
+ if(!t)return
+ let div=document.createElement("div")
+ div.className="todo-item"
+ div.innerHTML=`<span>${t}</span>
+ <div>
+ <button onclick="this.parentElement.parentElement.remove();addXP(10)">✔</button>
+ </div>`
+ todoList.appendChild(div)
+ todoText.value=""
+}
+
+function calcPeriod(){
+ let d=new Date(lastPeriod.value)
+ let len=Number(cycleLen.value)||28
+ if(!d)return
+ let next=new Date(d.getTime()+len*86400000)
+ periodOut.innerHTML="Next period: "+next.toDateString()
+}
+
+render()
+</script>
+
+</body>
+</html>
+
