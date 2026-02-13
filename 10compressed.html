@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HabitQuest - Evolve Your Habits</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--primary:#7C3AED;--primary-light:#A78BFA;--secondary:#3B82F6;--accent:#FF6B6B;--success:#10B981;--warning:#FBBF24;--bg:#F8F7FF;--card:#FFF;--text:#1F2937;--text-light:#6B7280;--border:#E5E7EB}
+        body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,var(--bg) 0%,#EDE9FE 100%);min-height:100vh;color:var(--text)}
+        .login-container{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+        .login-box{background:var(--card);padding:40px;border-radius:24px;box-shadow:0 20px 60px rgba(124,58,237,.15);max-width:420px;width:100%;text-align:center}
+        .login-character{width:120px;height:120px;margin:0 auto 20px;animation:float 3s ease-in-out infinite}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        .login-box h1{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:2.5em;margin-bottom:10px}
+        .login-box p{color:var(--text-light);margin-bottom:30px}
+        .login-type-selector{display:flex;gap:12px;margin-bottom:24px}
+        .login-type-btn{flex:1;padding:12px;background:var(--bg);border:2px solid var(--border);border-radius:12px;cursor:pointer;font-weight:600;color:var(--text);transition:all .3s}
+        .login-type-btn.active{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff;border-color:var(--primary)}
+        .input-group{margin-bottom:20px;text-align:left}
+        .input-group label{display:block;margin-bottom:8px;font-weight:600;color:var(--text)}
+        .input-group input{width:100%;padding:14px;border:2px solid var(--border);border-radius:12px;font-size:16px;transition:all .3s}
+        .input-group input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(124,58,237,.1)}
+        .login-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;transition:transform .2s}
+        .login-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(124,58,237,.3)}
+        .demo-hint{margin-top:20px;padding:12px;background:rgba(124,58,237,.05);border-radius:8px;font-size:14px;color:var(--text-light)}
+        .app-container{display:none}
+        .navbar{background:var(--card);padding:16px 24px;box-shadow:0 2px 10px rgba(0,0,0,.05);display:flex;justify-content:space-between;align-items:center}
+        .nav-brand{font-size:24px;font-weight:700;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .nav-stats{display:flex;gap:20px;align-items:center}
+        .stat-badge{padding:8px 16px;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff;border-radius:20px;font-weight:600;font-size:14px}
+        .logout-btn{padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600}
+        .main-content{display:flex;gap:24px;padding:24px;max-width:1400px;margin:0 auto}
+        .dashboard{flex:1}
+        .tabs{display:flex;gap:12px;margin-bottom:24px;background:var(--card);padding:8px;border-radius:12px}
+        .tab{flex:1;padding:12px;background:transparent;border:none;border-radius:8px;cursor:pointer;font-weight:600;color:var(--text-light);transition:all .3s}
+        .tab.active{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff}
+        .tab-content{display:none}
+        .tab-content.active{display:block}
+        .section-card{background:var(--card);padding:24px;border-radius:16px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .section-title{font-size:18px;font-weight:700;margin-bottom:16px;color:var(--text)}
+        .habit-item{display:flex;align-items:center;justify-content:space-between;padding:16px;background:var(--bg);border-radius:12px;margin-bottom:12px;cursor:pointer;transition:all .3s}
+        .habit-item:hover{transform:translateX(4px)}
+        .habit-item.completed{background:linear-gradient(135deg,rgba(124,58,237,.1) 0%,rgba(59,130,246,.1) 100%);border:2px solid var(--primary-light)}
+        .habit-info{display:flex;align-items:center;gap:12px}
+        .habit-icon{font-size:28px}
+        .habit-details h4{font-size:16px;margin-bottom:4px}
+        .habit-details p{font-size:14px;color:var(--text-light)}
+        .habit-check{width:28px;height:28px;border:3px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px}
+        .habit-item.completed .habit-check{background:var(--success);border-color:var(--success);color:#fff}
+        .period-tracker{background:linear-gradient(135deg,rgba(255,107,107,.1) 0%,rgba(167,139,250,.1) 100%);padding:20px;border-radius:12px;margin-bottom:20px}
+        .period-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+        .period-title{font-size:16px;font-weight:700;color:var(--accent)}
+        .cycle-day{background:var(--accent);color:#fff;padding:6px 14px;border-radius:20px;font-size:14px;font-weight:600}
+        .period-info{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+        .period-stat{background:var(--card);padding:12px;border-radius:8px;text-align:center}
+        .period-stat-label{font-size:12px;color:var(--text-light);margin-bottom:4px}
+        .period-stat-value{font-size:18px;font-weight:700;color:var(--accent)}
+        .mood-selector{display:flex;gap:8px;justify-content:center;margin-top:12px}
+        .mood-btn{font-size:28px;padding:8px;background:var(--card);border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all .3s}
+        .mood-btn:hover,.mood-btn.active{transform:scale(1.1);border-color:var(--accent)}
+        .todo-input{display:flex;gap:12px;margin-bottom:20px}
+        .todo-input input{flex:1;padding:12px;border:2px solid var(--border);border-radius:12px;font-size:14px}
+        .add-btn{padding:12px 24px;background:var(--primary);color:#fff;border:none;border-radius:12px;cursor:pointer;font-weight:600}
+        .todo-list{list-style:none}
+        .todo-item{display:flex;align-items:center;justify-content:space-between;padding:14px;background:var(--bg);border-radius:12px;margin-bottom:10px}
+        .todo-item.completed{opacity:.6;text-decoration:line-through}
+        .delete-btn{background:var(--accent);color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px}
+        .learning-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+        .learning-card{background:var(--bg);padding:20px;border-radius:12px;text-align:center;cursor:pointer;transition:all .3s}
+        .learning-card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(124,58,237,.2)}
+        .learning-card.completed{background:linear-gradient(135deg,rgba(124,58,237,.1) 0%,rgba(59,130,246,.1) 100%)}
+        .learning-icon{font-size:48px;margin-bottom:12px}
+        .character-panel{width:360px;background:var(--card);border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(0,0,0,.05);position:sticky;top:24px;height:fit-content}
+        .character-display{text-align:center;margin-bottom:24px}
+        .character-stage{font-size:14px;color:var(--primary);font-weight:600;margin-bottom:12px}
+        .character-visual{width:200px;height:200px;margin:0 auto 16px;position:relative;display:flex;align-items:center;justify-content:center}
+        .character-sprite{font-size:120px;animation:pulse 2s ease-in-out infinite}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+        .legendary-aura{position:absolute;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.3) 0%,transparent 70%);animation:glow 2s ease-in-out infinite}
+        @keyframes glow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+        .particles{position:absolute;width:100%;height:100%}
+        .particle{position:absolute;width:6px;height:6px;background:var(--primary);border-radius:50%;animation:float-p 3s ease-in-out infinite}
+        @keyframes float-p{0%,100%{transform:translateY(0) translateX(0);opacity:0}50%{opacity:1}100%{transform:translateY(-50px) translateX(10px);opacity:0}}
+        .xp-bar-container{margin-bottom:20px}
+        .xp-label{display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px;font-weight:600}
+        .xp-bar{height:12px;background:var(--border);border-radius:6px;overflow:hidden}
+        .xp-fill{height:100%;background:linear-gradient(90deg,var(--primary) 0%,var(--secondary) 100%);transition:width .5s ease}
+        .streak-info{background:var(--bg);padding:16px;border-radius:12px;margin-bottom:16px}
+        .streak-number{font-size:36px;font-weight:700;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center}
+        .streak-label{text-align:center;color:var(--text-light);font-size:14px}
+        .team-section{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+        .chat-box{background:var(--bg);border-radius:12px;padding:16px;height:300px;overflow-y:auto}
+        .chat-message{background:var(--card);padding:12px;border-radius:12px;margin-bottom:10px}
+        .chat-user{font-weight:600;color:var(--primary);font-size:14px;margin-bottom:4px}
+        .chat-text{font-size:14px;color:var(--text)}
+        .chat-input-container{display:flex;gap:12px;margin-top:12px}
+        .leaderboard-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg);border-radius:12px;margin-bottom:10px}
+        .rank{font-size:24px;font-weight:700;color:var(--primary);min-width:40px}
+        .team-task-item{padding:14px;background:var(--bg);border-radius:12px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+        .complete-btn{background:var(--success);color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600}
+        @media (max-width:968px){.main-content{flex-direction:column}.character-panel{width:100%;position:static}.team-section{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="login-character">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="35" fill="#A78BFA"/>
+                    <circle cx="40" cy="45" r="4" fill="#1F2937"/>
+                    <circle cx="60" cy="45" r="4" fill="#1F2937"/>
+                    <path d="M 35 60 Q 50 70 65 60" stroke="#1F2937" stroke-width="3" fill="none" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h1>HabitQuest</h1>
+            <p>Evolve your habits, evolve yourself</p>
+            <div class="login-type-selector">
+                <button type="button" class="login-type-btn active" onclick="selectLoginType('individual')">Individual</button>
+                <button type="button" class="login-type-btn" onclick="selectLoginType('team')">Team</button>
+            </div>
+            <form id="loginForm">
+                <div id="individualFields">
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="your@email.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="Min 6 characters">
+                    </div>
+                </div>
+                <div id="teamFields" style="display:none">
+                    <div class="input-group">
+                        <label>Team Code</label>
+                        <input type="text" id="teamCode" placeholder="Enter team code">
+                    </div>
+                </div>
+                <button type="submit" class="login-btn">Start Your Quest</button>
+            </form>
+            <div class="demo-hint">💡 Demo: demo@quest.com / demo123</div>
+        </div>
+    </div>
+    <div id="appContainer" class="app-container">
+        <nav class="navbar">
+            <div class="nav-brand">🎮 HabitQuest</div>
+            <div class="nav-stats">
+                <div class="stat-badge" id="streakBadge">🔥 0 Day Streak</div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </nav>
+        <div class="main-content">
+            <div class="dashboard">
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('health')">🫀 Health</button>
+                    <button class="tab" onclick="switchTab('todos')">✅ Todos</button>
+                    <button class="tab" onclick="switchTab('learning')">📚 Learning</button>
+                    <button class="tab" onclick="switchTab('team')">👥 Team</button>
+                </div>
+                <div id="healthTab" class="tab-content active">
+                    <div class="period-tracker">
+                        <div class="period-header">
+                            <div class="period-title">🌸 Period Tracker</div>
+                            <div class="cycle-day" id="cycleDay">Day 15</div>
+                        </div>
+                        <div class="period-info">
+                            <div class="period-stat">
+                                <div class="period-stat-label">Next Period</div>
+                                <div class="period-stat-value" id="nextPeriod">13 days</div>
+                            </div>
+                            <div class="period-stat">
+                                <div class="period-stat-label">Cycle Length</div>
+                                <div class="period-stat-value">28 days</div>
+                            </div>
+                        </div>
+                        <div style="text-align:center;margin-bottom:8px;font-size:14px;font-weight:600">How are you feeling?</div>
+                        <div class="mood-selector">
+                            <button class="mood-btn" onclick="selectMood('great')">😊</button>
+                            <button class="mood-btn" onclick="selectMood('good')">🙂</button>
+                            <button class="mood-btn" onclick="selectMood('okay')">😐</button>
+                            <button class="mood-btn" onclick="selectMood('tired')">😴</button>
+                            <button class="mood-btn" onclick="selectMood('pain')">😣</button>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <div class="section-title">Daily Health Goals</div>
+                        <div id="healthHabits"></div>
+                    </div>
+                </div>
+                <div id="todosTab" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-title">Personal Tasks</div>
+                        <div class="todo-input">
+                            <input type="text" id="todoInput" placeholder="Add a new task...">
+                            <button class="add-btn" onclick="addTodo()">Add</button>
+                        </div>
+                        <ul id="todoList" class="todo-list"></ul>
+                    </div>
+                </div>
+                <div id="learningTab" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-title">Personal Growth</div>
+                        <div class="learning-grid" id="learningCards"></div>
+                    </div>
+                </div>
+                <div id="teamTab" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-title">Team Workspace</div>
+                        <div class="team-section">
+                            <div>
+                                <h4 style="margin-bottom:12px;font-size:16px">💬 Team Chat</h4>
+                                <div class="chat-box" id="chatBox"></div>
+                                <div class="chat-input-container">
+                                    <input type="text" id="chatInput" placeholder="Type a message..." style="flex:1;padding:10px;border:2px solid var(--border);border-radius:8px">
+                                    <button class="add-btn" onclick="sendMessage()">Send</button>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom:12px;font-size:16px">🏆 Leaderboard</h4>
+                                <div id="leaderboard"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <div class="section-title">Team Tasks</div>
+                        <div id="teamTasks"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="character-panel">
+                <div class="character-display">
+                    <div class="character-stage" id="characterStage">Dormant</div>
+                    <div class="character-visual" id="characterVisual">
+                        <div class="character-sprite" id="characterSprite">💤</div>
+                    </div>
+                </div>
+                <div class="xp-bar-container">
+                    <div class="xp-label"><span>XP</span><span id="xpDisplay">0 / 100</span></div>
+                    <div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
+                </div>
+                <div class="streak-info">
+                    <div class="streak-number" id="streakDisplay">0</div>
+                    <div class="streak-label">Day Streak</div>
+                </div>
+                <div style="background:var(--bg);padding:16px;border-radius:12px;font-size:14px;line-height:1.6">
+                    <strong>Evolution Path:</strong><br>🌑 Dormant (0 days)<br>🌱 Seedling (1-3 days)<br>⚔️ Adventurer (4-7 days)<br>🔮 Warrior (8-14 days)<br>👑 Champion (15-21 days)<br>✨ Legendary (22+ days)
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let g={user:null,loginType:'individual',xp:0,streak:0,lastActiveDate:null,habits:[{id:1,name:'Steps',target:'5,000 steps',icon:'🚶',completed:false,xp:20},{id:2,name:'Workout',target:'30 minutes',icon:'💪',completed:false,xp:25},{id:3,name:'Water',target:'12 glasses',icon:'💧',completed:false,xp:15},{id:4,name:'Meditation',target:'20 minutes',icon:'🧘',completed:false,xp:20}],todos:[],learning:[{id:1,name:'Reading',icon:'📖',completed:false,xp:15},{id:2,name:'Skills',icon:'🛠️',completed:false,xp:15},{id:3,name:'Personal Growth',icon:'🌟',completed:false,xp:15},{id:4,name:'Language',icon:'🗣️',completed:false,xp:15}],period:{cycleDay:15,cycleLength:28,mood:null}};
+        const stages=[{min:0,max:0,name:'Dormant',emoji:'💤'},{min:1,max:3,name:'Seedling',emoji:'🌱'},{min:4,max:7,name:'Adventurer',emoji:'⚔️'},{min:8,max:14,name:'Warrior',emoji:'🔮'},{min:15,max:21,name:'Champion',emoji:'👑'},{min:22,max:999,name:'Legendary',emoji:'✨'}];
+        function selectLoginType(t){g.loginType=t;document.querySelectorAll('.login-type-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');if(t==='individual'){document.getElementById('individualFields').style.display='block';document.getElementById('teamFields').style.display='none'}else{document.getElementById('individualFields').style.display='none';document.getElementById('teamFields').style.display='block'}}
+        document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();if(g.loginType==='individual'){const email=document.getElementById('loginEmail').value,password=document.getElementById('loginPassword').value;if(email.includes('@')&&password.length>=6){g.user=email;loadGame();document.getElementById('loginPage').style.display='none';document.getElementById('appContainer').style.display='block'}else alert('Please enter a valid email and password (min 6 characters)')}else{const code=document.getElementById('teamCode').value;if(code.trim().length>0){g.user='team_'+code;loadGame();document.getElementById('loginPage').style.display='none';document.getElementById('appContainer').style.display='block'}else alert('Please enter a team code')}});
+        function logout(){saveGame();document.getElementById('loginPage').style.display='flex';document.getElementById('appContainer').style.display='none';g.user=null}
+        function switchTab(n){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));event.target.classList.add('active');document.getElementById(n+'Tab').classList.add('active')}
+        function renderHabits(){document.getElementById('healthHabits').innerHTML=g.habits.map(h=>`<div class="habit-item ${h.completed?'completed':''}" onclick="toggleHabit(${h.id})"><div class="habit-info"><div class="habit-icon">${h.icon}</div><div class="habit-details"><h4>${h.name}</h4><p>${h.target}</p></div></div><div class="habit-check">${h.completed?'✓':''}</div></div>`).join('')}
+        function toggleHabit(id){const h=g.habits.find(x=>x.id===id);if(!h.completed){h.completed=true;addXP(h.xp);if(g.habits.every(x=>x.completed)){addXP(50);showNotification('🎉 All health goals complete! +50 Bonus XP')}}renderHabits();saveGame()}
+        function selectMood(m){document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');g.period.mood=m;addXP(5);saveGame()}
+        function updatePeriodTracker(){const d=g.period.cycleLength-g.period.cycleDay;document.getElementById('cycleDay').textContent=`Day ${g.period.cycleDay}`;document.getElementById('nextPeriod').textContent=`${d} days`}
+        function addTodo(){const inp=document.getElementById('todoInput');if(inp.value.trim()){g.todos.push({id:Date.now(),text:inp.value,completed:false});inp.value='';renderTodos();saveGame()}}
+        function renderTodos(){document.getElementById('todoList').innerHTML=g.todos.map(t=>`<li class="todo-item ${t.completed?'completed':''}"><span onclick="toggleTodo(${t.id})" style="cursor:pointer;flex:1">${t.text}</span><button class="delete-btn" onclick="deleteTodo(${t.id})">Delete</button></li>`).join('')}
+        function toggleTodo(id){const t=g.todos.find(x=>x.id===id);if(!t.completed){t.completed=true;addXP(10)}renderTodos();saveGame()}
+        function deleteTodo(id){g.todos=g.todos.filter(t=>t.id!==id);renderTodos();saveGame()}
+        function renderLearning(){document.getElementById('learningCards').innerHTML=g.learning.map(i=>`<div class="learning-card ${i.completed?'completed':''}" onclick="toggleLearning(${i.id})"><div class="learning-icon">${i.icon}</div><h4>${i.name}</h4>${i.completed?'<p style="color:var(--success);font-weight:600;margin-top:8px">✓ Completed</p>':'<p style="color:var(--text-light);font-size:14px;margin-top:8px">+15 XP</p>'}</div>`).join('')}
+        function toggleLearning(id){const i=g.learning.find(x=>x.id===id);if(!i.completed){i.completed=true;addXP(i.xp)}renderLearning();saveGame()}
+        function addXP(a){g.xp+=a;updateXPDisplay();updateCharacter();showNotification(`+${a} XP`)}
+        function updateXPDisplay(){const p=(g.xp%100)/100*100;document.getElementById('xpFill').style.width=p+'%';document.getElementById('xpDisplay').textContent=`${g.xp%100} / 100`}
+        function updateCharacter(){const s=stages.find(x=>g.streak>=x.min&&g.streak<=x.max);document.getElementById('characterStage').textContent=s.name;document.getElementById('characterSprite').textContent=s.emoji;const v=document.getElementById('characterVisual');if(s.name==='Legendary'){if(!v.querySelector('.legendary-aura'))v.innerHTML=`<div class="legendary-aura"></div><div class="particles"><div class="particle" style="left:20%;animation-delay:0s"></div><div class="particle" style="left:50%;animation-delay:.5s"></div><div class="particle" style="left:80%;animation-delay:1s"></div></div><div class="character-sprite" id="characterSprite">${s.emoji}</div>`}else v.innerHTML=`<div class="character-sprite" id="characterSprite">${s.emoji}</div>`}
+        function updateStreak(){const today=new Date().toDateString(),last=g.lastActiveDate;if(!last)g.streak=1;else if(last!==today){const y=new Date();y.setDate(y.getDate()-1);g.streak=last===y.toDateString()?g.streak+1:1}g.lastActiveDate=today;document.getElementById('streakDisplay').textContent=g.streak;document.getElementById('streakBadge').textContent=`🔥 ${g.streak} Day Streak`;updateCharacter()}
+        function renderTeam(){document.getElementById('chatBox').innerHTML=[{user:'Sarah',text:'Great job on the 10-day streak everyone! 🎉'},{user:'Mike',text:'Who wants to do a meditation session together?'},{user:'You',text:"I'm in! Let's do it at 7pm"}].map(m=>`<div class="chat-message"><div class="chat-user">${m.user}</div><div class="chat-text">${m.text}</div></div>`).join('');const l=[{name:'Sarah',streak:28,xp:2100},{name:'You',streak:g.streak,xp:g.xp},{name:'Mike',streak:15,xp:980},{name:'Emma',streak:12,xp:750}].sort((a,b)=>b.xp-a.xp);document.getElementById('leaderboard').innerHTML=l.map((u,i)=>`<div class="leaderboard-item"><div class="rank">#${i+1}</div><div style="flex:1"><div style="font-weight:600">${u.name}</div><div style="font-size:12px;color:var(--text-light)">🔥 ${u.streak} days • ${u.xp} XP</div></div></div>`).join('');document.getElementById('teamTasks').innerHTML=['Complete 10,000 total team steps','Everyone meditates for 20 mins','Share a healthy recipe'].map((t,i)=>`<div class="team-task-item"><span>${t}</span><button class="complete-btn" onclick="completeTeamTask(${i})">Complete</button></div>`).join('')}
+        function sendMessage(){const inp=document.getElementById('chatInput');if(inp.value.trim()){const box=document.getElementById('chatBox');box.innerHTML+=`<div class="chat-message"><div class="chat-user">You</div><div class="chat-text">${inp.value}</div></div>`;inp.value='';box.scrollTop=box.scrollHeight;setTimeout(()=>{box.innerHTML+=`<div class="chat-message"><div class="chat-user">Mike</div><div class="chat-text">That sounds great! 👍</div></div>`;box.scrollTop=box.scrollHeight},1000)}}
+        function completeTeamTask(i){addXP(30);showNotification('🎉 Team task completed! +30 XP')}
+        function showNotification(m){const n=document.createElement('div');n.textContent=m;n.style.cssText='position:fixed;top:80px;right:20px;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff;padding:16px 24px;border-radius:12px;font-weight:600;box-shadow:0 8px 20px rgba(124,58,237,.3);z-index:1000;animation:slideIn .3s ease';document.body.appendChild(n);setTimeout(()=>{n.style.animation='slideOut .3s ease';setTimeout(()=>n.remove(),300)},2000)}
+        function saveGame(){localStorage.setItem('habitquest_'+g.user,JSON.stringify(g))}
+        function loadGame(){const s=localStorage.getItem('habitquest_'+g.user);if(s){const d=JSON.parse(s);g={...g,...d}}updateStreak();updateXPDisplay();updateCharacter();updatePeriodTracker();renderHabits();renderTodos();renderLearning();renderTeam()}
+        const st=document.createElement('style');st.textContent='@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes slideOut{from{transform:translateX(0);opacity:1}to{transform:translateX(400px);opacity:0}}';document.head.appendChild(st);
+    </script>
+</body>
+</html>
