@@ -2,9 +2,9 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Project Name] 🎯
+# HABITQUEST 🎯
 
-## Basic Details
+## 
 
 ### Team Name: [Name]
 
