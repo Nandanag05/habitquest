@@ -18,9 +18,6 @@ By converting daily habits into a game-like experience, HabitQuest promotes sust
 - Member 1: Nandana G - NSS College of Engineering Palakkad
 - Member 2: Krishna J - NSS College of Engineering Palakkad
 
-### Hosted Project Link
-[mention your project hosted link here]
-
 ### Project Description
 HabitQuest is a gamified web platform designed to make habit building engaging and sustainable.
 Users earn XP, maintain streaks, and evolve their digital character as they consistently complete habits.
@@ -93,13 +90,11 @@ live server in VS code
 #### Diagrams
 
 **System Architecture:**
+<img width="1080" height="1327" alt="image" src="https://github.com/user-attachments/assets/6c117f29-30d7-4859-a178-2e3ef706a2ef" />
 
-![Architecture Diagram](docs/architecture.png)
 
 
 **Application Workflow:**
-
-![Workflow](docs/workflow.png)
 
 ![user login](https://github.com/user-attachments/assets/56494bac-e2b8-4ce6-90ba-734d1e9ef39b)
 
@@ -128,6 +123,8 @@ https://identitytoolkit.googleapis.com/v1/
 ## Project Demo
 
 ### Video
+
+
 [Add your demo video link here - YouTube, Google Drive, etc.]
 
 *Explain what the video demonstrates - key features, user flow, technical highlights*
