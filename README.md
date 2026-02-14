@@ -4,25 +4,33 @@
 
 # HABITQUEST 🎯
 
-## 
+## HabitQuest is a gamified self-growth web platform that transforms habit building into an interactive journey. It integrates habit tracking, learning goals, health tracking, and team collaboration within a single ecosystem.
+The platform uses:
+🔥 Streak-based rewards
+🏆 XP progression system
+🧬 Character evolution mechanism
+🤝 Team accountability
+By converting daily habits into a game-like experience, HabitQuest promotes sustained behavioural transformation rather than simple task completion
 
-### Team Name: [Name]
+### Team Name: LOGIC LORDS
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
+- Member 1: Nandana G - NSS College of Engineering Palakkad
+- Member 2: Krishna J - NSS College of Engineering Palakkad
 
 ### Hosted Project Link
 [mention your project hosted link here]
 
 ### Project Description
-[2-3 lines about what your project does]
+HabitQuest is a gamified web platform designed to make habit building engaging and sustainable.
+Users earn XP, maintain streaks, and evolve their digital character as they consistently complete habits.
+By combining health, learning, task management, and team collaboration, it transforms productivity into an interactive growth journey.
 
 ### The Problem statement
-[What problem are you solving?]
+Most existing habit and productivity applications focus on tracking tasks rather than enabling long-term behavioural transformation. Users often lose motivation due to lack of engagement, emotional reinforcement, and accountability mechanisms. There is a need for a unified, gamified platform that promotes consistency and sustained self-growth through rewards, visual progress, and collaboration.
 
 ### The Solution
-[How are you solving it?]
+HabitQuest solves this problem by transforming habit tracking into a gamified experience. It introduces a streak-based reward system, XP progression, and character evolution to emotionally engage users and encourage consistency. By integrating habit tracking, health goals, learning tasks, and team collaboration in one platform, it builds accountability and promotes long-term behavioural change rather than simple task logging
 
 ---
 
@@ -31,10 +39,10 @@
 ### Technologies/Components Used
 
 **For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
+- Languages used: HTML5, CSS, JavaScript
+- Frameworks used: Vannilla javascript and firebase as backend
+- Libraries used: Firebase javascript SDK
+- Tools used: VS Code , GIT ,GitHub
 
 **For Hardware:**
 - Main components: [List main components]
@@ -46,10 +54,15 @@
 ## Features
 
 List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-- Feature 4: [Description]
+- Feature 1:  Gamified Habit Tracking
+Users complete daily habits to earn XP and track their consistency in an engaging way.
+feature 2: Streak Maintenance System
+Maintains daily streaks and rewards users for continuous habit completion to encourage discipline.
+feature 3 : XP & Level Progression
+Users gain experience points and level up, visually representing their personal growth.
+feature 4:  Team Collaboration Mode
+Allows users to join teams, track collective progress, and build accountability through shared goals.
+
 
 ---
 
@@ -58,14 +71,17 @@ List the key features of your project:
 ### For Software:
 
 #### Installation
-```bash
-[Installation commands - e.g., npm install, pip install -r requirements.txt]
-```
+git clone https://github.com/your-username/habitquest.git
+cd habitquest
+firebase login
+
+
+
+
 
 #### Run
-```bash
-[Run commands - e.g., npm start, python app.py]
-```
+index.html
+live server in VS code 
 
 ### For Hardware:
 
@@ -97,7 +113,7 @@ List the key features of your project:
 **System Architecture:**
 
 ![Architecture Diagram](docs/architecture.png)
-*Explain your system architecture - components, data flow, tech stack interaction*
+
 
 **Application Workflow:**
 
@@ -137,7 +153,11 @@ List the key features of your project:
 
 #### API Documentation
 
-**Base URL:** `https://api.yourproject.com`
+**Base URL:** HabitQuest does not use a custom REST API with a base URL.
+Instead, it integrates directly with Firebase services through the Firebase JavaScript SDK.
+However, the Firebase service endpoints internally use :https://firestore.googleapis.com/v1/
+https://identitytoolkit.googleapis.com/v1/
+
 
 ##### Endpoints
 
@@ -374,25 +394,32 @@ python script.py -v --format json data.json
 
 If you used AI tools during development, document them here for transparency:
 
-**Tool Used:** [e.g., GitHub Copilot, v0.dev, Cursor, ChatGPT, Claude]
+**Tool Used:** AI Tools Used (Transparency Declaration)
+🔹 ChatGPT
+🔹 Claude
+
 
 **Purpose:** [What you used it for]
-- Example: "Generated boilerplate React components"
-- Example: "Debugging assistance for async functions"
-- Example: "Code review and optimization suggestions"
+- Example: "speed up boilerplate code generation"
+- Example: "Debugging assistance"
+-
+  - Example: "Code review and optimization suggestions and firebase assistance
 
 **Key Prompts Used:**
-- "Create a REST API endpoint for user authentication"
-- "Debug this async function that's causing race conditions"
-- "Optimize this database query for better performance"
+Generate a Firebase authentication integration structure using HTML, CSS, and JavaScript.
+Help debug Firebase login and Firestore data retrieval issues.
+Design a streak-based XP reward logic for a gamified habit tracker.
+Generate structured GitHub README sections including features and installation steps.
 
-**Percentage of AI-generated code:** [Approximately X%]
+**Percentage of AI-generated code:**  %
 
 **Human Contributions:**
-- Architecture design and planning
-- Custom business logic implementation
-- Integration and testing
-- UI/UX design decisions
+- Conceptualized the idea and overall theme.
+-Designed system logic and workflow.
+-Structured the architecture and database.
+-Integrated AI-generated code with custom logic.
+-Created and customised the user interface.
+-Tested functionality and finalised the working product.
 
 *Note: Proper documentation of AI usage demonstrates transparency and earns bonus points in evaluation!*
 
@@ -400,9 +427,9 @@ If you used AI tools during development, document them here for transparency:
 
 ## Team Contributions
 
-- [Name 1]: [Specific contributions - e.g., Frontend development, API integration, etc.]
-- [Name 2]: [Specific contributions - e.g., Backend development, Database design, etc.]
-- [Name 3]: [Specific contributions - e.g., UI/UX design, Testing, Documentation, etc.]
+ NANDANA G: Conceptualized idea , designed logic ,customized frontend , tested final product, developed prompts
+ KRISHNA J : structured architecture, planned streak mechanism , implemented firebase mechanism , tested final product, developed prompts
+
 
 ---
 
