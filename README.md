@@ -83,15 +83,12 @@ live server in VS code
 ### For Software:
 
 #### Screenshots (Add at least 3)
+<img width="1920" height="1080" alt="login page" src="https://github.com/user-attachments/assets/f68bcf8c-fd0c-405e-bcb4-7d6a2fe2e756" />
+<img width="1920" height="1020" alt="dashboard health" src="https://github.com/user-attachments/assets/99c59776-1bec-49fb-a764-70f7fb695ea9" />
+<img width="1920" height="1080" alt="dashboard learning" src="https://github.com/user-attachments/assets/01b7f227-07a4-4f4c-a0f3-9d9e04d33454" />
+<img width="1920" height="1080" alt="dashboard team" src="https://github.com/user-attachments/assets/2114ebaf-7d4a-4a88-a6e9-86c704b3136d" />
+<img width="1920" height="1080" alt="character changed" src="https://github.com/user-attachments/assets/2139a43f-b251-4f71-9aeb-2a0e7d91798d" />
 
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
 
 #### Diagrams
 
@@ -103,9 +100,11 @@ live server in VS code
 **Application Workflow:**
 
 ![Workflow](docs/workflow.png)
-*Add caption explaining your workflow*
 
----
+![user login](https://github.com/user-attachments/assets/56494bac-e2b8-4ce6-90ba-734d1e9ef39b)
+
+---<img width="866" height="593" alt="image" src="https://github.com/user-attachments/assets/2f240869-4eed-417d-8db4-a21e56c2118a" /> team login
+
 
 ## Additional Documentation
 
@@ -118,180 +117,11 @@ Instead, it integrates directly with Firebase services through the Firebase Java
 However, the Firebase service endpoints internally use :https://firestore.googleapis.com/v1/
 https://identitytoolkit.googleapis.com/v1/
 
-
-#### Installation Guide
-
-**For Android (APK):**
-1. Download the APK from [Release Link]
-2. Enable "Install from Unknown Sources" in your device settings:
-   - Go to Settings > Security
-   - Enable "Unknown Sources"
-3. Open the downloaded APK file
-4. Follow the installation prompts
-5. Open the app and enjoy!
-
-**For iOS (IPA) - TestFlight:**
-1. Download TestFlight from the App Store
-2. Open this TestFlight link: [Your TestFlight Link]
-3. Click "Install" or "Accept"
-4. Wait for the app to install
-5. Open the app from your home screen
-
-**Building from Source:**
-```bash
-# For Android
-flutter build apk
-# or
-./gradlew assembleDebug
-
-# For iOS
-flutter build ios
-# or
-xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug
-```
-
 ---
 
-### For Hardware Projects:
 
-#### Bill of Materials (BOM)
 
-| Component | Quantity | Specifications | Price | Link/Source |
-|-----------|----------|----------------|-------|-------------|
-| Arduino Uno | 1 | ATmega328P, 16MHz | ₹450 | [Link] |
-| LED | 5 | Red, 5mm, 20mA | ₹5 each | [Link] |
-| Resistor | 5 | 220Ω, 1/4W | ₹1 each | [Link] |
-| Breadboard | 1 | 830 points | ₹100 | [Link] |
-| Jumper Wires | 20 | Male-to-Male | ₹50 | [Link] |
-| [Add more...] | | | | |
 
-**Total Estimated Cost:** ₹[Amount]
-
-#### Assembly Instructions
-
-**Step 1: Prepare Components**
-1. Gather all components listed in the BOM
-2. Check component specifications
-3. Prepare your workspace
-![Step 1](images/assembly-step1.jpg)
-*Caption: All components laid out*
-
-**Step 2: Build the Power Supply**
-1. Connect the power rails on the breadboard
-2. Connect Arduino 5V to breadboard positive rail
-3. Connect Arduino GND to breadboard negative rail
-![Step 2](images/assembly-step2.jpg)
-*Caption: Power connections completed*
-
-**Step 3: Add Components**
-1. Place LEDs on breadboard
-2. Connect resistors in series with LEDs
-3. Connect LED cathodes to GND
-4. Connect LED anodes to Arduino digital pins (2-6)
-![Step 3](images/assembly-step3.jpg)
-*Caption: LED circuit assembled*
-
-**Step 4: [Continue for all steps...]**
-
-**Final Assembly:**
-![Final Build](images/final-build.jpg)
-*Caption: Completed project ready for testing*
-
----
-
-### For Scripts/CLI Tools:
-
-#### Command Reference
-
-**Basic Usage:**
-```bash
-python script.py [options] [arguments]
-```
-
-**Available Commands:**
-- `command1 [args]` - Description of what command1 does
-- `command2 [args]` - Description of what command2 does
-- `command3 [args]` - Description of what command3 does
-
-**Options:**
-- `-h, --help` - Show help message and exit
-- `-v, --verbose` - Enable verbose output
-- `-o, --output FILE` - Specify output file path
-- `-c, --config FILE` - Specify configuration file
-- `--version` - Show version information
-
-**Examples:**
-
-```bash
-# Example 1: Basic usage
-python script.py input.txt
-
-# Example 2: With verbose output
-python script.py -v input.txt
-
-# Example 3: Specify output file
-python script.py -o output.txt input.txt
-
-# Example 4: Using configuration
-python script.py -c config.json --verbose input.txt
-```
-
-#### Demo Output
-
-**Example 1: Basic Processing**
-
-**Input:**
-```
-This is a sample input file
-with multiple lines of text
-for demonstration purposes
-```
-
-**Command:**
-```bash
-python script.py sample.txt
-```
-
-**Output:**
-```
-Processing: sample.txt
-Lines processed: 3
-Characters counted: 86
-Status: Success
-Output saved to: output.txt
-```
-
-**Example 2: Advanced Usage**
-
-**Input:**
-```json
-{
-  "name": "test",
-  "value": 123
-}
-```
-
-**Command:**
-```bash
-python script.py -v --format json data.json
-```
-
-**Output:**
-```
-[VERBOSE] Loading configuration...
-[VERBOSE] Parsing JSON input...
-[VERBOSE] Processing data...
-{
-  "status": "success",
-  "processed": true,
-  "result": {
-    "name": "test",
-    "value": 123,
-    "timestamp": "2024-02-07T10:30:00"
-  }
-}
-[VERBOSE] Operation completed in 0.23s
-```
 
 ---
 
