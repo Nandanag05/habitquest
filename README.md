@@ -44,11 +44,6 @@ HabitQuest solves this problem by transforming habit tracking into a gamified ex
 - Libraries used: Firebase javascript SDK
 - Tools used: VS Code , GIT ,GitHub
 
-**For Hardware:**
-- Main components: [List main components]
-- Specifications: [Technical specifications]
-- Tools required: [List tools needed]
-
 ---
 
 ## Features
@@ -83,16 +78,6 @@ firebase login
 index.html
 live server in VS code 
 
-### For Hardware:
-
-#### Components Required
-[List all components needed with specifications]
-
-#### Circuit Setup
-[Explain how to set up the circuit]
-
----
-
 ## Project Documentation
 
 ### For Software:
@@ -122,31 +107,6 @@ live server in VS code
 
 ---
 
-### For Hardware:
-
-#### Schematic & Circuit
-
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-#### Build Photos
-
-![Team](Add photo of your team here)
-
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
-
----
-
 ## Additional Documentation
 
 ### For Web Projects with Backend:
@@ -158,49 +118,6 @@ Instead, it integrates directly with Firebase services through the Firebase Java
 However, the Firebase service endpoints internally use :https://firestore.googleapis.com/v1/
 https://identitytoolkit.googleapis.com/v1/
 
-
-##### Endpoints
-
-**GET /api/endpoint**
-- **Description:** [What it does]
-- **Parameters:**
-  - `param1` (string): [Description]
-  - `param2` (integer): [Description]
-- **Response:**
-```json
-{
-  "status": "success",
-  "data": {}
-}
-```
-
-**POST /api/endpoint**
-- **Description:** [What it does]
-- **Request Body:**
-```json
-{
-  "field1": "value1",
-  "field2": "value2"
-}
-```
-- **Response:**
-```json
-{
-  "status": "success",
-  "message": "Operation completed"
-}
-```
-
-[Add more endpoints as needed...]
-
----
-
-### For Mobile Apps:
-
-#### App Flow Diagram
-
-![App Flow](docs/app-flow.png)
-*Explain the user flow through your application*
 
 #### Installation Guide
 
